@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useForm } from 'react-hook-form';
 import axios from "axios"
+
 
 const EventForm = () => {
 
@@ -27,47 +29,48 @@ const EventForm = () => {
     setEventBooking({ ...eventBooking, [name]: value });
   }
 
-  let handleSubmit = async (e) => {
+  let onSubmit = async (e) => {
     e.preventDefault();
 
     var selectedEvent = events.find(item => item.id === eventBooking.eventId);
     eventBooking.eventName = selectedEvent.name;
     console.log("Event Booking: ", eventBooking)
-
-   
-      axios
-        .post(eventBookingApi, {
-          eventId: eventBooking.eventId,
-          eventName: eventBooking.eventName,
-          emailAddress: eventBooking.emailAddress,
-          seatsBooked: eventBooking.seatsBooked
-        })
-        .then((response) => {
-            console.log('Form submitted successfully!',response.status, response.data);
-            setEventBooking({
-              eventId: "",
-              eventName: "",
-              seatsBooked: "",
-              emailAddress: "",
-            });         
-        })
-        .catch((error)=> {console.log("Error occured..",error)});   
+    axios
+      .post(eventBookingApi, eventBooking)
+      .then((response) => {
+        console.log('Form submitted successfully!', response.status, response.data);
+        setEventBooking({
+          eventId: "",
+          eventName: "",
+          seatsBooked: "1",
+          emailAddress: "",
+        });
+      })
+      .catch((error) => { console.log("Error occured..", error) });
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       className="max-w-md mx-auto p-4 bg-white rounded-md shadow-md"
     >
       <div className="mb-4">
-        <label className="block text-gray-700">Event</label>
+        <label className="block text-gray-700">Select Event</label>
         <select
           name="eventId"
           onChange={handleChange}
+          value={eventBooking.eventId}
           className="w-full mt-1 p-2 border border-gray-300 rounded-md"
         >
           <option value="Select an Event"> -- Select an Event -- </option>
-          {events.map((event) => <option key={event.id} value={event.id}>{event.name}</option>)}
+          {events.map((event) =>
+            <option
+              key={event.id}
+              value={event.id}
+            >
+              {event.name}
+            </option>
+          )}
         </select>
       </div>
       <div className="mb-4">
@@ -75,6 +78,7 @@ const EventForm = () => {
         <select
           name="seatsBooked"
           onChange={handleChange}
+          value={eventBooking.seatsBooked}
           className="w-full mt-1 p-2 border border-gray-300 rounded-md"
         >
           {
@@ -91,6 +95,7 @@ const EventForm = () => {
           value={eventBooking.emailAddress}
           onChange={handleChange}
           className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          required
         />
       </div>
       <button
