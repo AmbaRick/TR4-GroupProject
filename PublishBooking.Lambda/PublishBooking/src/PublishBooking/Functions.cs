@@ -42,4 +42,12 @@ public class Functions
 
         return HttpResults.Ok("Hello AWS Serverless");
     }
+
+    [LambdaFunction]
+    [RestApi(LambdaHttpMethod.Post, template: "/")]
+    public IHttpResult Post(ILambdaContext context)
+    {
+        context.Logger.LogInformation("Publish Booking lambda called");
+        return HttpResults.Accepted("Booking request has been accepted");
+    }
 }

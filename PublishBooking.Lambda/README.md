@@ -7,6 +7,15 @@ This project was created with the following command:
 dotnet new serverless.EmptyServerless --name PublishBooking.Lambda
 ```
 
+## Decisions made
+* The Lambda is called PublishBooking rather than PublishBooking.Lambda. This is because the `dotnet lambda deploy-serverless` command generates a lot of objects within AWS and uses the lambda name as a base. There was an error where something couldn't be created because the name wasn't alphanumeric. I renamed the lambda function as a way to avoid this.
+
+## TODO
+* Add the event message details to the request body
+* Call the SNS topic with the event message details
+* Validation of the event message details
+* Directory cleanup? We can probably remove the `PublishBooking.Lambda/PublishBooking/` directory and move the `src` and `test` directories within `PublishBooking.Lambda/`. That directory was created by the `dotnet new serverless.EmptyServerless` command and I think it's not needed. 
+
 ## To set up your environment
 1. Create IAM Policy called `lambda-apigateway-policy` with the following policy: 
 ```{
@@ -58,5 +67,5 @@ aws lambda invoke --function-name <YOUR LAMBDA FUNCTION NAME> --payload "" respo
 ```
 8. Create the API Gateway. In the AWS API Gateway console, Create API -> Rest API -> build -> New Api called PublishBookingOperations.  create a resource with the name EventBookingManager
 9. Create a resource with the name EventBookingManager against your API
-9. Create a method against your resource: Create method -> method type: GET, integration type: lambda function, Lambda function: arn of your lambda function
-10. Test - In API Gateway under your created method there is a Test button, you can use this to ensure your api gateway is calling your lambda. You should get a 200 response back in api-gateway. You can also go into your lambda and checkout the cloudwatch logs.
+9. Create a method against your resource: Create method -> method type: POST, integration type: lambda function, Lambda function: arn of your lambda function
+10. Test - In API Gateway under your created method there is a Test button, you can use this to ensure your api gateway is calling your lambda. You should get a 202 response back in api-gateway. You can also go into your lambda and checkout the cloudwatch logs.

@@ -25,4 +25,19 @@ public class FunctionTest
         var apiGatewayResponse = new StreamReader(response.Serialize(serializationOptions)).ReadToEnd();
         Assert.Contains("Hello AWS Serverless", apiGatewayResponse);
     }
+
+    [Fact]
+    public void TestPostMethod()
+    {
+        var context = new TestLambdaContext();
+        var functions = new Functions();
+
+        var response = functions.Post(context);
+
+        Assert.Equal(System.Net.HttpStatusCode.Accepted, response.StatusCode);
+
+        var serializationOptions = new HttpResultSerializationOptions { Format = HttpResultSerializationOptions.ProtocolFormat.RestApi };
+        var apiGatewayResponse = new StreamReader(response.Serialize(serializationOptions)).ReadToEnd();
+        Assert.Contains("Booking request has been accepted", apiGatewayResponse);
+    }
 }
