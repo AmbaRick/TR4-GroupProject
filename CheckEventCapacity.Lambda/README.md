@@ -46,13 +46,19 @@ The goal was to keep the Lambda function lightweight and minimize dependencies t
    ```bash
    aws sns create-topic --name Event-Publish
    ```
-2. Subscribe the `CheckEventCapacity` Lambda function to the SNS topic (add CLI commands as needed).
-
-3. Test the Lambda function by invoking it. Use the JSON example below:
+2. Subscribe the `CheckEventCapacity` Lambda function to the SNS topic
+  ```bash
+   aws sns subscribe \
+  --topic-arn arn:aws:sns:REGION:ACCOUNT:Event-Publish \
+  --protocol lambda \
+  --notification-endpoint arn:aws:lambda:REGION:ACCOUNT:function:CheckEventCapacity.
+ ```
+5. Test the Lambda function by invoking it. Use the JSON example below:
    ```bash
    dotnet lambda invoke-function CheckEventCapacity --payload "This message is for the dotnet lambda function"
-   ```
-4. This command invokes the Lambda function manually.
+    ```
+
+
 
 ## Example JSON for Lambda Function
 Ensure you use your test data:
