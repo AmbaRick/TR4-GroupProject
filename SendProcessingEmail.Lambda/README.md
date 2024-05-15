@@ -56,7 +56,8 @@ Deploy function to AWS Lambda
     dotnet lambda deploy-function
 ```
 ## aws-lambda-tools-defaults.json (will require creating in your project folder
-`{
+```
+{
   "Information": [
     "This file provides default values for the deployment wizard inside Visual Studio and the AWS Lambda commands added to the .NET Core CLI.",
     "To learn more about the Lambda commands with the .NET Core CLI execute the following command at the command line in the project root directory.",
@@ -70,10 +71,12 @@ Deploy function to AWS Lambda
   "function-memory-size": 512,
   "function-timeout": 30,
   "function-handler": "SendProcessingEmailLambda::SendProcessingEmailLambda.SendProcessingEmail::SendProcessingEmailHandler"
-}`
+}
+```
 
 ## Record structure for testing via AWS Lambda dashboard
-`{
+```
+{
   "Records": [
     {
       "EventSource": "aws:sns",
@@ -111,4 +114,5 @@ Deploy function to AWS Lambda
       }
     }
   ]
-}`
+}
+```
