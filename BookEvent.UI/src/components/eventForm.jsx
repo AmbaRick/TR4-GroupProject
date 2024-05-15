@@ -57,7 +57,7 @@ const EventForm = () => {
       className="max-w-md mx-auto p-4 bg-white rounded-md shadow-md"
     >
       <div className="mb-4">
-        <label className="block text-gray-700">Select Event</label>
+        <label className="block text-gray-700">Events</label>
         <select
           name="eventId"
           onChange={handleChange}
@@ -65,7 +65,7 @@ const EventForm = () => {
           className="w-full mt-1 p-2 border border-gray-300 rounded-md"
           required
         >
-          {/* <option value="Select an Event"> -- Select an Event -- </option> */}
+          <option value="Select an Event"> -- Select an Event -- </option>
           {events.map((event) =>
             <option
               key={event.id}
