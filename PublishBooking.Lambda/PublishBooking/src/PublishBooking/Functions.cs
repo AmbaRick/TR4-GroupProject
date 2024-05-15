@@ -38,7 +38,8 @@ public class Functions
             $"Publish Booking lambda called: {eventBooking.EventId} - {eventBooking.EventName} - {eventBooking.EmailAddress} - {eventBooking.Seats}");
         
         // Publish to SNS
-        var topicArn = "arn:aws:sns:eu-west-2:730335382882:event-booking";
+        //var topicArn = "arn:aws:sns:eu-west-2:730335382882:event-booking";
+        string topicArn = Environment.GetEnvironmentVariable("SNS_ARN");
         await PublishToTopicAsync(_client, 
             topicArn, 
             JsonSerializer.Serialize(eventBooking), 
@@ -72,9 +73,9 @@ public class Functions
 
     public class EventBooking
     {
-        public string EventId { get; set; }
-        public string EventName { get; set; }
-        public string EmailAddress { get; set; }
+        public string? EventId { get; set; }
+        public string? EventName { get; set; }
+        public string? EmailAddress { get; set; }
         public int Seats { get; set; }
     }
 }

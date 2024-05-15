@@ -30,6 +30,13 @@
               "Method": "POST"
             }
           }
+        },
+        "Environment": {
+          "Variables": {
+            "LOCAL_SNS_ARN": "arn:aws:sns:eu-west-2:730335382882:event-booking",
+            "PETE_SNS_ARN": "arn:aws:sns:eu-west-2:339712718524:TestTopic"
+            "SNS_ARN": "arn:aws:sns:eu-west-2:339712718524:TestTopic"
+          }
         }
       }
     }
