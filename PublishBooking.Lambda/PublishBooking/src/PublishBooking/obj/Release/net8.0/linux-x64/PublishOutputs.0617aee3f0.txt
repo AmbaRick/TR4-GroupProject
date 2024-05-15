@@ -1,0 +1,12 @@
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\PublishBooking.deps.json
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\PublishBooking.runtimeconfig.json
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\PublishBooking.pdb
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\Amazon.Lambda.Annotations.dll
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\Amazon.Lambda.APIGatewayEvents.dll
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\Amazon.Lambda.Core.dll
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\Amazon.Lambda.Serialization.SystemTextJson.dll
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\AWSSDK.Core.dll
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\AWSSDK.SimpleNotificationService.dll
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\bisbyp\source\repos\TR4-GroupProject\PublishBooking.Lambda\PublishBooking\src\PublishBooking\bin\Release\net8.0\publish\PublishBooking.dll
