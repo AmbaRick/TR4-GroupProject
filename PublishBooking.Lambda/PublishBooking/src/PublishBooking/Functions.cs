@@ -45,9 +45,17 @@ public class Functions
 
     [LambdaFunction]
     [RestApi(LambdaHttpMethod.Post, template: "/")]
-    public IHttpResult Post(ILambdaContext context)
+    public IHttpResult Post([FromBody] EventBooking eventBooking, ILambdaContext context)
     {
-        context.Logger.LogInformation("Publish Booking lambda called");
+        context.Logger.LogInformation($"Publish Booking lambda called: {eventBooking.EventId} - {eventBooking.EventName} - {eventBooking.EmailAddress} - {eventBooking.Seats}");
         return HttpResults.Accepted("Booking request has been accepted");
+    }
+    
+    public class EventBooking
+    {
+        public string EventId { get; set; }
+        public string EventName { get; set; }
+        public string EmailAddress { get; set; }
+        public int Seats { get; set; }
     }
 }
