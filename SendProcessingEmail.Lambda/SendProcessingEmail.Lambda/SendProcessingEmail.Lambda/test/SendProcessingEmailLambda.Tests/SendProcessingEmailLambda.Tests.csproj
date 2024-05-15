@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SendProcessingEmail.Lambda\src\SendProcessingEmail.Lambda\SendProcessingEmailLambda.csproj" />
+    <ProjectReference Include="..\..\src\SendProcessingEmail.Lambda\SendProcessingEmailLambda.csproj" />
   </ItemGroup>
 
   <ItemGroup>
