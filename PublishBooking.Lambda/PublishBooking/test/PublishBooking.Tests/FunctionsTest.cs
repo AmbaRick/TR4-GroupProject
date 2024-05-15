@@ -29,10 +29,10 @@ public class FunctionTest
         const int testSeats = 4;
         var eventBookingRequest = new Functions.EventBooking
         {
-            EventId = testUuid,
-            EventName = testEvent,
-            EmailAddress = testEmail,
-            Seats = testSeats
+            eventId = testUuid,
+            eventName = testEvent,
+            emailAddress = testEmail,
+            seats = testSeats
         };
         
         var snsResponse = new PublishResponse
