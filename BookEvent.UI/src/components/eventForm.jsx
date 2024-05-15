@@ -65,7 +65,7 @@ const EventForm = () => {
           className="w-full mt-1 p-2 border border-gray-300 rounded-md"
           required
         >
-          <option value="Select an Event"> -- Select an Event -- </option>
+          <option value=""> -- Select an Event -- </option>
           {events.map((event) =>
             <option
               key={event.id}
