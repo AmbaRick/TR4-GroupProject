@@ -7,16 +7,15 @@ const EventForm = () => {
   const eventBookingApi = import.meta.env.VITE_API_URL;
 
   let events = [
-    { id: "id1", name: "Epic Moments Productions: Crafting Unforgettable Experiences" },
-    { id: "id2", name: "Dreamscape Events: Where Fantasies Come to Life" },
-    { id: "id3", name: "Enchanted Affairs: Turning Dreams into Reality" },
-    { id: "id4", name: "Whimsical Wonder Events: A World of Magic and Charm" },
-    { id: "id5", name: "Spectacular Soirees: Creating Memories That Last" },
+    { id: "664239f8ea0391811686ab24", name: "Royal Blood at the O2" },
+    { id: "66423a19ea0391811686ab25", name: "Liam Gallagher and John squire at the Troxy" },
+    { id: "6644bba5fe0d559b9eceb6e", name: "The Community Festival" },
+    { id: "6644bc13fe0d559b9eceb6e8", name: "Glastonbury" },
   ]
   const [eventBooking, setEventBooking] = useState({
     eventId: "",
     eventName: "",
-    seatsBooked: "1",
+    seats: "1",
     emailAddress: "",
   })
 
@@ -44,7 +43,7 @@ const EventForm = () => {
         setEventBooking({
           eventId: "",
           eventName: "",
-          seatsBooked: "1",
+          seats: "1",
           emailAddress: "",
         });
       })
@@ -84,7 +83,7 @@ const EventForm = () => {
         <select
           name="seatsBooked"
           onChange={handleChange}
-          value={eventBooking.seatsBooked}
+          value={eventBooking.seats}
           className="w-full mt-1 p-2 border border-gray-300 rounded-md"
         >
           {
