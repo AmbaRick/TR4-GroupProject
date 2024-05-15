@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios"
-
 
 const EventForm = () => {
 
-  const eventBookingApi = "https://localhost:7150/api/Event";
+  const eventBookingApi = import.meta.env.VITE_API_URL;
 
   let events = [
     { id: "id1", name: "Epic Moments Productions: Crafting Unforgettable Experiences" },
@@ -33,12 +32,15 @@ const EventForm = () => {
     e.preventDefault();
 
     var selectedEvent = events.find(item => item.id === eventBooking.eventId);
+    
     eventBooking.eventName = selectedEvent.name;
     console.log("Event Booking: ", eventBooking)
     axios
       .post(eventBookingApi, eventBooking)
       .then((response) => {
         console.log('Form submitted successfully!', response.status, response.data);
+        toast.success("Your order is in progress. You will receive an email shorty!", {autoClose: 10000});
+
         setEventBooking({
           eventId: "",
           eventName: "",
@@ -46,7 +48,10 @@ const EventForm = () => {
           emailAddress: "",
         });
       })
-      .catch((error) => { console.log("Error occured..", error) });
+      .catch((error) => { 
+        console.log("Error occured..", error); 
+        toast.error("Something went wrong. Please try again later.", {autoClose: 10000});
+      });
   };
 
   return (
@@ -55,14 +60,15 @@ const EventForm = () => {
       className="max-w-md mx-auto p-4 bg-white rounded-md shadow-md"
     >
       <div className="mb-4">
-        <label className="block text-gray-700">Select Event</label>
+        <label className="block text-gray-700">Events</label>
         <select
           name="eventId"
           onChange={handleChange}
           value={eventBooking.eventId}
           className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          required
         >
-          <option value="Select an Event"> -- Select an Event -- </option>
+          <option value=""> -- Select an Event -- </option>
           {events.map((event) =>
             <option
               key={event.id}
@@ -102,7 +108,7 @@ const EventForm = () => {
         type="submit"
         className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
       >
-        Submit
+        Buy
       </button>
     </form>
   );
