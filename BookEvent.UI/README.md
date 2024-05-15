@@ -42,3 +42,14 @@ To build the app for production, execute:
     
 
 This will create a `build` folder with optimized production-ready assets.
+
+## Future Enhancements
+
+- Enhance UI/UX with styles to make it more appealing and intuitive.
+- Fetch events data from API.
+- Write unit tests, integration tests, and end-to-end tests
+
+## Potential Issues
+
+- Lack of proper error handling and fallback mechanisms, leading to unexpected behavior.
+
