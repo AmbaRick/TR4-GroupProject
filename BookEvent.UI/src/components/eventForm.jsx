@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios"
-
 
 const EventForm = () => {
 
@@ -33,12 +32,15 @@ const EventForm = () => {
     e.preventDefault();
 
     var selectedEvent = events.find(item => item.id === eventBooking.eventId);
+    
     eventBooking.eventName = selectedEvent.name;
     console.log("Event Booking: ", eventBooking)
     axios
       .post(eventBookingApi, eventBooking)
       .then((response) => {
         console.log('Form submitted successfully!', response.status, response.data);
+        toast("Your order is in progress. You will receive an email shorty!", {autoClose: 15000});
+
         setEventBooking({
           eventId: "",
           eventName: "",
@@ -61,8 +63,9 @@ const EventForm = () => {
           onChange={handleChange}
           value={eventBooking.eventId}
           className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+          required
         >
-          <option value="Select an Event"> -- Select an Event -- </option>
+          {/* <option value="Select an Event"> -- Select an Event -- </option> */}
           {events.map((event) =>
             <option
               key={event.id}
