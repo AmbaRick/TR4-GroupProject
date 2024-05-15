@@ -5,7 +5,7 @@ import axios from "axios"
 
 const EventForm = () => {
 
-  const eventBookingApi = "https://localhost:7150/api/Event";
+  const eventBookingApi = import.meta.env.VITE_API_URL;
 
   let events = [
     { id: "id1", name: "Epic Moments Productions: Crafting Unforgettable Experiences" },
@@ -102,7 +102,7 @@ const EventForm = () => {
         type="submit"
         className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
       >
-        Submit
+        Buy
       </button>
     </form>
   );
