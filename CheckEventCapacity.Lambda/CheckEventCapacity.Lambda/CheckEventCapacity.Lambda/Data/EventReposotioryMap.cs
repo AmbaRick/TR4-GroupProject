@@ -1,9 +1,4 @@
 ﻿using MongoDB.Bson.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson;
@@ -11,6 +6,10 @@ using CheckEventCapacity.Lambda.Entities;
 
 namespace CheckEventCapacity.Lambda.Data
 {
+
+    /// <summary>
+    /// Maps the objectId to mongoDB otherwise would need to add attributes to the Event Class
+    /// </summary>
     public class EventRepositoryMapping
     {
 

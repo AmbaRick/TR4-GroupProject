@@ -1,14 +1,12 @@
 ﻿using MongoDB.Driver;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CheckEventCapacity.Lambda.Entities;
 
 namespace CheckEventCapacity.Lambda.Data
 {
+
+    /// <summary>
+    /// Sets up the database connection connection for MongoDB
+    /// </summary>
     public class EventRepositorySetUp
     {
         public IMongoCollection<Event> Events
@@ -18,7 +16,7 @@ namespace CheckEventCapacity.Lambda.Data
 
         }
 
-        public EventRepositorySetUp()
+        public EventRepositorySetUp(EventRepositorySettings seventRepositorySettings)
         {
             EventRepositoryMapping.Instance
                .RegisterEventRepository<Event>(cm =>
@@ -27,10 +25,10 @@ namespace CheckEventCapacity.Lambda.Data
             try
             {
                
-                var mongoClient = new MongoClient(Environment.GetEnvironmentVariable("CONNECTIONSTRING"));
-                var toDoDatabase = mongoClient.GetDatabase(Environment.GetEnvironmentVariable("DATABASENAME"));
+                var mongoClient = new MongoClient(seventRepositorySettings.ConnectionString);
+                var toDoDatabase = mongoClient.GetDatabase(seventRepositorySettings.DatabaseName);
 
-                this.Events = toDoDatabase.GetCollection<Event>(Environment.GetEnvironmentVariable("COLLECTIONNAME"));
+                this.Events = toDoDatabase.GetCollection<Event>(seventRepositorySettings.CollectionName);
             }
             catch (Exception ex)
             {

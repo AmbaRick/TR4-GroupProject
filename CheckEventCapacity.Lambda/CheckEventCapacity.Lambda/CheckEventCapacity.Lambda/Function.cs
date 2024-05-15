@@ -1,85 +1,101 @@
-using Amazon.Lambda.Core;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using Amazon.Lambda.SNSEvents;
-using SharpCompress.Common;
-using MongoDB.Bson.IO;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using MongoDB.Bson.Serialization.Attributes;
-using CheckEventCapacity.Lambda.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using CheckEventCapacity.Lambda.Data;
-using System.Runtime.CompilerServices;
 using Amazon.Lambda.Annotations;
+using Amazon.Lambda.Core;
+using Amazon.Lambda.SNSEvents;
+using CheckEventCapacity.Lambda.Data;
 using CheckEventCapacity.Lambda.Entities;
-
+using CheckEventCapacity.Lambda.Interfaces;
+using System.Text.Json;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
-namespace CheckEventCapacity.Lambda;
-
-
-
-public class Function()
+namespace CheckEventCapacity.Lambda
 {
-    private static IEventRepository repo;
-  
-
-    static Function()
-    {
-        repo = new EventRepository();
-    }
-
-
-
 
     /// <summary>
-    /// A simple function that takes a string and does a ToUpper
+    /// Lambda function to check the avaiablity of seats against the capacity of an event
     /// </summary>
-    /// <param name="input">The event for the Lambda function handler to process.</param>
-    /// <param name="context">The ILambdaContext that provides methods for logging and describing the Lambda environment.</param>
-    /// <returns></returns>
-    public async Task FunctionHandler(SNSEvent evnt, ILambdaContext context)
+    public class Function
     {
-        //TODO: add TraceID $event.traceId
 
-        //Go through each notification
-        foreach (var record in evnt.Records)
+        /// <summary>
+        /// Sets up DI for repository
+        /// </summary>
+        private readonly IEventRepository _repo;
+
+        public Function() : this(new EventRepository(new EventRepositorySettings(
+            Environment.GetEnvironmentVariable("CONNECTIONSTRING"),
+            Environment.GetEnvironmentVariable("DATABASENAME"),
+            Environment.GetEnvironmentVariable("COLLECTIONNAME"))))
         {
-            //TODO: check tickets against capacity
-            EventBooking eventBooking = JsonSerializer.Deserialize<EventBooking>(record.Sns.Message);
-
-            //Check Capacity of event per booking
-            bool eventAvailable = await GetEvent(eventBooking);
-            if (!eventAvailable)
-            {
-
-                //TODO:implement process to cancel order and send out relevant notifications
-                context.Logger.LogInformation($"Event Booking Error: Capacity not available for {eventBooking.eventName} for email address:{eventBooking.emailAddress}  ");
-            }
-            else 
-            { 
-                //TODO: implement process to confirm order and send out relevant notifications
-      
-            }
-
-            
         }
 
+        public Function(IEventRepository repo)
+        {
+            _repo = repo;
+        }
+
+
+        /// <summary>
+        /// The main function called by Lambda function to check if cpacity for requested event
+        /// </summary>
+        /// <param name="evnt"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        [LambdaFunction]
+        public async Task FunctionHandler(SNSEvent evnt, ILambdaContext context)
+        {
+            foreach (var record in evnt.Records)
+            {
+                EventBooking eventBooking = null;
+                try
+                {
+                    eventBooking = JsonSerializer.Deserialize<EventBooking>(record.Sns.Message);
+                }
+                catch (JsonException jsonException)
+                {
+                    context.Logger.LogInformation($"JSON Deserialize ERROR: For booking request with email address:{eventBooking.emailAddress}");
+
+                }
+
+
+                if (eventBooking != null)
+                {
+                    bool eventAvailable = await CheckEventCapacityAvailable(eventBooking);
+                    if (!eventAvailable)
+                    {
+                        context.Logger.LogInformation($"Event Booking Error: Capacity not available for {eventBooking.eventName} for email address:{eventBooking.emailAddress}");
+                    }
+                    else
+                    {
+                        context.Logger.LogInformation($"Event Booking Confirmed: Capacity available for {eventBooking.eventName} for email address:{eventBooking.emailAddress}");
+                    }
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Gets the event details based on ID
+        /// </summary>
+        /// <param name="eventBooking"></param>
+        /// <returns></returns>
+        private async Task<bool> CheckEventCapacityAvailable(EventBooking eventBooking)
+        {
+            Event eventRequested = await _repo.Get(eventBooking.eventId);
+            return await IsCapacityPerSeats(eventBooking.seats, eventRequested.capacity);
+        }
+
+
+        /// <summary>
+        /// method to return a boolean if capcity for requested event
+        /// </summary>
+        /// <param name="seats"></param>
+        /// <param name="capacity"></param>
+        /// <returns></returns>
+        private Task<bool> IsCapacityPerSeats(int seats, int capacity)
+        {
+            return Task.FromResult(seats <= capacity);
+        }
     }
-
-    private async Task<bool> GetEvent(EventBooking eventBooking) {
-
-        Event eventRequested  = await repo.Get(eventBooking.eventId);
-        return await IsCapacityPerSeats(eventBooking.seats, eventRequested.capacity);
-    }
-
-    private async Task<bool> IsCapacityPerSeats(int seats, int capacity)
-    {
-        if (seats <= capacity) { return true; }
-        else { return false; }
-    }
-
 }
