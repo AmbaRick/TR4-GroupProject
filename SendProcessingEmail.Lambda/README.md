@@ -7,6 +7,15 @@ The function handler (SendProcessingEmailHandler) responds to events on an Amazo
 
 A trigger has been manually created via AWS Lambda dashboard that is attached to the SendProcessingEmail function, to ensure execution.
 
+## AWS IAM Role Permissions
+As this function integrates with SNS and SES, the relevent permissions/actions will be required:
+* AWSLambdaBasicExecutionRole - AWS Managed - Execution of Lambda functions
+* AWSElasticBeanstalkRoleSNS  - AWS Managed - Able to write to logs
+* ses:SendEmail               - Custom      - Able to send emails
+
+## TODO
+Look into AWS Lambda CDK to deploy/build cloud artefacts (Function, Trigger, IAM Policies)
+
 ## Here are some steps to follow from Visual Studio:
 
 To deploy your function to AWS Lambda, right click the project in Solution Explorer and select *Publish to AWS Lambda*.
