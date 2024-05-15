@@ -1,5 +1,8 @@
 using Amazon.Lambda.Annotations.APIGateway;
 using Amazon.Lambda.TestUtilities;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using Moq;
 using Xunit;
 
 namespace PublishBooking.Tests;
@@ -28,10 +31,12 @@ public class FunctionTest
     }
 
     [Fact]
-    public void TestPostMethod()
+    public async Task TestPostMethod()
     {
+        // Arrange
         var context = new TestLambdaContext();
-        var functions = new Functions();
+        var mockSnsService = new Mock<IAmazonSimpleNotificationService>();
+        var functions = new Functions(mockSnsService.Object);
         
         const string testUuid = "6cf0f64e-ab02-45e6-92bf-9f70a7dc76a9";
         const string testEvent = "Test Event";
@@ -44,9 +49,17 @@ public class FunctionTest
             EmailAddress = testEmail,
             Seats = testSeats
         };
+        
+        var snsResponse = new PublishResponse
+        {
+            MessageId = testUuid
+        };
+        mockSnsService.Setup(x => x.PublishAsync(It.IsAny<PublishRequest>(), It.IsAny<CancellationToken>())).ReturnsAsync(snsResponse);
 
-        var response = functions.Post(eventBookingRequest, context);
+        // Act
+        var response = await functions.Post(eventBookingRequest, context);
 
+        // Assert
         Assert.Equal(System.Net.HttpStatusCode.Accepted, response.StatusCode);
 
         var serializationOptions = new HttpResultSerializationOptions { Format = HttpResultSerializationOptions.ProtocolFormat.RestApi };

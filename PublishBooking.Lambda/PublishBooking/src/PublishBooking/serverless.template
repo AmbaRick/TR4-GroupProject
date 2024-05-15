@@ -49,7 +49,8 @@
         "MemorySize": 512,
         "Timeout": 30,
         "Policies": [
-          "AWSLambdaBasicExecutionRole"
+          "AWSLambdaBasicExecutionRole",
+          "AmazonSNSFullAccess"
         ],
         "PackageType": "Zip",
         "Handler": "PublishBooking::PublishBooking.Functions_Post_Generated::Post",
