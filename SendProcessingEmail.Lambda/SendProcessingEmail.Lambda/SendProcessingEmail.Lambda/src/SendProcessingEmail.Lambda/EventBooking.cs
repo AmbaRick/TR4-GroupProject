@@ -18,8 +18,8 @@ namespace SendProcessingEmailLambda
         [JsonPropertyName("emailAddress")]
         public string? EmailAddress { get; set; }
 
-        [JsonPropertyName("seatsBooked")]
-        public int? SeatsBooked { get; set; }
+        [JsonPropertyName("seats")]
+        public int? Seats { get; set; }
 
 
     }

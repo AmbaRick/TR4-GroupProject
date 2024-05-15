@@ -10,11 +10,13 @@ dotnet new serverless.EmptyServerless --name PublishBooking.Lambda
 ## Decisions made
 * The Lambda is called PublishBooking rather than PublishBooking.Lambda. This is because the `dotnet lambda deploy-serverless` command generates a lot of objects within AWS and uses the lambda name as a base. There was an error where something couldn't be created because the name wasn't alphanumeric. I renamed the lambda function as a way to avoid this.
 
-## TODO
-* Add the event message details to the request body
-* Call the SNS topic with the event message details
+## TODO / Tech debt
 * Validation of the event message details
+* Error handling, especially around publishing to sns
+* Permissions - currently the lambda has access to the whole of SNS however they only need Publish
+* Production and dev config - we need to specify the SNS arn to publish to
 * Directory cleanup? We can probably remove the `PublishBooking.Lambda/PublishBooking/` directory and move the `src` and `test` directories within `PublishBooking.Lambda/`. That directory was created by the `dotnet new serverless.EmptyServerless` command and I think it's not needed. 
+* Not sure we actually need steps 1 and 2 of the environment setup now that its using serverless, i think it creates its own roles
 
 ## To set up your environment
 1. Create IAM Policy called `lambda-apigateway-policy` with the following policy: 
@@ -51,6 +53,9 @@ dotnet new serverless.EmptyServerless --name PublishBooking.Lambda
 2. Create IAM role called `lambda-apigateway-role`
    trusted entity: AWS service, use-case: lambda, policy: `lambda-apigateway-policy`. copy the arn, you’ll need this later 
 3. Create an S3 bucket to store the output.
+```
+aws s3api create-bucket --bucket tr4-publish-event-bucket --create-bucket-configuration LocationConstraint=eu-west-2
+```
 4. Run your tests cd "PublishBooking/test/PublishBooking.Tests" 
 ```
 dotnet test

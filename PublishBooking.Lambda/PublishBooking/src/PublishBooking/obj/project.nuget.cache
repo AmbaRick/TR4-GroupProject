@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "6lrXFoIlnIr0EKzen2xwdlb7SSLunnRCCZKGEjdgiw0GfF33CNQO08Fm4pIGvq9gJ+ApcXAeKRgQUl8oEZzYFw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\bisbyp\\source\\repos\\TR4-GroupProject\\PublishBooking.Lambda\\PublishBooking\\src\\PublishBooking\\PublishBooking.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bisbyp\\.nuget\\packages\\amazon.lambda.annotations\\1.3.0\\amazon.lambda.annotations.1.3.0.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\amazon.lambda.apigatewayevents\\2.7.0\\amazon.lambda.apigatewayevents.2.7.0.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\amazon.lambda.core\\2.2.0\\amazon.lambda.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\amazon.lambda.serialization.systemtextjson\\2.4.1\\amazon.lambda.serialization.systemtextjson.2.4.1.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\awssdk.core\\3.7.304.1\\awssdk.core.3.7.304.1.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\awssdk.simplenotificationservice\\3.7.301.39\\awssdk.simplenotificationservice.3.7.301.39.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\microsoft.netcore.app.runtime.linux-x64\\8.0.2\\microsoft.netcore.app.runtime.linux-x64.8.0.2.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.linux-x64\\8.0.2\\microsoft.aspnetcore.app.runtime.linux-x64.8.0.2.nupkg.sha512",
+    "C:\\Users\\bisbyp\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\8.0.2\\microsoft.netcore.app.crossgen2.win-x64.8.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

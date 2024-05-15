@@ -138,7 +138,7 @@ namespace SendProcessingEmailLambda
                         + "We are currently processing your request and will notify "
                         + "you again once the booking has been completed\r\n\r\n"
                         + "Event: " + _eventBooking.EventName + "\r\n"
-                        + "Seats: " + _eventBooking.SeatsBooked;
+                        + "Seats: " + _eventBooking.Seats;
                     break;
                 case "html":
                     var _emailText = @"<html>
@@ -151,7 +151,7 @@ Event: {0}<br />
 Seats: {1}<br />
 </body>
 </html>";
-                    _emailBody = string.Format(_emailText, _eventBooking.EventName, _eventBooking.SeatsBooked);
+                    _emailBody = string.Format(_emailText, _eventBooking.EventName, _eventBooking.Seats);
                     break;
                 default:
                     _emailBody = "";
