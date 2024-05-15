@@ -23,6 +23,7 @@ namespace CheckEventCapacity.Lambda
         /// </summary>
         private readonly IEventRepository _repo;
 
+
         public Function() : this(new EventRepository(new EventRepositorySettings(
             Environment.GetEnvironmentVariable("CONNECTIONSTRING"),
             Environment.GetEnvironmentVariable("DATABASENAME"),
@@ -45,12 +46,15 @@ namespace CheckEventCapacity.Lambda
         [LambdaFunction]
         public async Task FunctionHandler(SNSEvent evnt, ILambdaContext context)
         {
+   
             foreach (var record in evnt.Records)
             {
                 EventBooking eventBooking = null;
                 try
                 {
                     eventBooking = JsonSerializer.Deserialize<EventBooking>(record.Sns.Message);
+                    //TODO:validate the fields in the eventBooking
+
                 }
                 catch (JsonException jsonException)
                 {
@@ -61,7 +65,7 @@ namespace CheckEventCapacity.Lambda
 
                 if (eventBooking != null)
                 {
-                    bool eventAvailable = await CheckEventCapacityAvailable(eventBooking);
+                    bool eventAvailable = await CheckEventCapacityAvailable(eventBooking, context);
                     if (!eventAvailable)
                     {
                         context.Logger.LogInformation($"Event Booking Error: Capacity not available for {eventBooking.eventName} for email address:{eventBooking.emailAddress}");
@@ -80,9 +84,15 @@ namespace CheckEventCapacity.Lambda
         /// </summary>
         /// <param name="eventBooking"></param>
         /// <returns></returns>
-        private async Task<bool> CheckEventCapacityAvailable(EventBooking eventBooking)
+        private async Task<bool> CheckEventCapacityAvailable(EventBooking eventBooking, ILambdaContext context)
         {
             Event eventRequested = await _repo.Get(eventBooking.eventId);
+
+            if (eventRequested == null)
+            {//if there is an issue returning an event. log the error and return no capacity.
+                context.Logger.LogInformation($"Error retrieving event: For {eventBooking.eventName} for email address:{eventBooking.emailAddress}");
+                return false;
+            }
             return await IsCapacityPerSeats(eventBooking.seats, eventRequested.capacity);
         }
 
