@@ -39,7 +39,7 @@ public class Functions
         
         // Publish to SNS
         //var topicArn = "arn:aws:sns:eu-west-2:730335382882:event-booking";
-        string topicArn = Environment.GetEnvironmentVariable("SNS_ARN");
+        string topicArn = Environment.GetEnvironmentVariable("SNS_ARN") ?? "arn:aws:sns:eu-west-2:339712718524:Event-Publish";
         await PublishToTopicAsync(_client, 
             topicArn, 
             JsonSerializer.Serialize(eventBooking), 
