@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SendProcessingEmail.Lambda/SendProcessingEmail.Lambda/SendProcessingEmail.Lambda/src/SendProcessingEmail.Lambda/aws-lambda-tools-defaults.json
