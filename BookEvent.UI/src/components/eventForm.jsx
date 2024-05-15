@@ -39,7 +39,7 @@ const EventForm = () => {
       .post(eventBookingApi, eventBooking)
       .then((response) => {
         console.log('Form submitted successfully!', response.status, response.data);
-        toast("Your order is in progress. You will receive an email shorty!", {autoClose: 15000});
+        toast.success("Your order is in progress. You will receive an email shorty!", {autoClose: 10000});
 
         setEventBooking({
           eventId: "",
@@ -48,7 +48,10 @@ const EventForm = () => {
           emailAddress: "",
         });
       })
-      .catch((error) => { console.log("Error occured..", error) });
+      .catch((error) => { 
+        console.log("Error occured..", error); 
+        toast.error("Something went wrong. Please try again later.", {autoClose: 10000});
+      });
   };
 
   return (
