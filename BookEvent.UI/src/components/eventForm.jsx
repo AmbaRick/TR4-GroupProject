@@ -81,7 +81,7 @@ const EventForm = () => {
       <div className="mb-4">
         <label className="block text-gray-700">Number of Tickets</label>
         <select
-          name="seatsBooked"
+          name="seats"
           onChange={handleChange}
           value={eventBooking.seats}
           className="w-full mt-1 p-2 border border-gray-300 rounded-md"
