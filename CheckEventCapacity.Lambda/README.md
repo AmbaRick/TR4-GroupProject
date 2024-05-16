@@ -42,11 +42,19 @@ The goal was to keep the Lambda function lightweight and minimize dependencies t
    ```
 
 #### 3. AWS Setup
-1. Create an SNS topic:
+1. Set up the database connection strings and information.  Add these to the enviroment variables to the function either in the console or via CLI  The required enviroment variables are:
+   - CONNECTIONSTRING
+   - DATABASENAME
+   - COLLECTIONNAME
    ```bash
-   aws sns create-topic --name Event-Publish
+   aws lambda update-function-configuration  --function-name CheckEventCapacity --environment "Variables={CONNECTIONSTRING,mongoconnectionString}"
+    ```
+  
+3. Create an SNS topic:
+   ```bash
+     aws sns create-topic --name Event-Publish
    ```
-2. Subscribe the `CheckEventCapacity` Lambda function to the SNS topic
+5. Subscribe the `CheckEventCapacity` Lambda function to the SNS topic
   ```bash
    aws sns subscribe \
   --topic-arn arn:aws:sns:REGION:ACCOUNT:Event-Publish \
