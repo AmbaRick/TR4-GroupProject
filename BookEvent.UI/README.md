@@ -1,6 +1,6 @@
-# Sample React App
+# Event Booking App
 
-This is a sample React application created for Event booking.
+This project was bootstrapped with [Vite](https://vitejs.dev/guide/).
 
 ## Getting Started
 
@@ -48,8 +48,11 @@ This will create a `build` folder with optimized production-ready assets.
 - Enhance UI/UX with styles to make it more appealing and intuitive.
 - Fetch events data from API.
 - Write unit tests, integration tests, and end-to-end tests
+- Handling Loading and Error States: As API calls are asynchronous, it’s important to display loading states while the data is being fetched and error messages if something goes wrong.
 
-## Potential Issues
+## Technologies and Tools Used
 
-- Lack of proper error handling and fallback mechanisms, leading to unexpected behavior.
+- **[Vite](https://vitejs.dev/guide/)** - Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects.
+- **[Axios](https://axios-http.com/docs/intro)** - Promise based HTTP client for the browser and node.js
+- **[React-Toastify](https://www.npmjs.com/package/react-toastify)** - It allows you to add notifications to your app with ease.
 
