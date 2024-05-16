@@ -55,4 +55,5 @@ This will create a `build` folder with optimized production-ready assets.
 - **[Vite](https://vitejs.dev/guide/)** - Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects.
 - **[Axios](https://axios-http.com/docs/intro)** - Promise based HTTP client for the browser and node.js
 - **[React-Toastify](https://www.npmjs.com/package/react-toastify)** - It allows you to add notifications to your app with ease.
+- **[Tailwind css](https://flowbite.com/docs/getting-started/introduction/)**
 
